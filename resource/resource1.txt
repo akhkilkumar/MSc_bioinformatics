@@ -1,0 +1,28 @@
+10 courses to get you started with bioinformatics 🧵 Bookmark!
+1/ https://lnkd.in/e_qybv2T by the almighty Rafa
+
+2/ https://lnkd.in/eZnKrFHn 
+
+by Aaron Quinlan, the creator of bedtools and many other cool tools.
+
+3/ https://lnkd.in/eWZMdS94 You can find the video classes on Coursera 
+
+4/ not a course, biostar Handbook, but Istvan (creator of the biostars.org) uses it in his class at Penn State https://lnkd.in/e64WveGG I contributed a ChIP-seq chapter in 2017
+
+5/ Introduction to Bioinformatics and Computational Biology https://lnkd.in/gwf7KMtX by @XShirleyLiu 
+
+glad to contribute a little myself.
+
+6/ data carpentry workshops https://lnkd.in/erctzy9q I was honored to serve as the curriculum committee chair 
+
+Computational Genomics: Applied Comparative Genomics
+ https://lnkd.in/eyyq4-pv
+
+8/ Introduction to Computational Biology https://lnkd.in/eCBkhHE2 by Mike Love (creator of DESeq2)
+
+9/ MIT Computational Biology: Genomes, Networks, Evolution, Health - Fall 6.047/6.878/HST.507] by Manolis Kellis
+https://lnkd.in/ek5mG_SX
+
+10/ An introduction to Applied Bioinformatics https://lnkd.in/eei99cQx Very nice book with python code.
+
+I hope you've found this post helpful.
