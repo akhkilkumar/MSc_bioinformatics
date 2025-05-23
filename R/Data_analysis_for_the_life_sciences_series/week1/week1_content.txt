@@ -1,0 +1,6 @@
+Getting Started with R 	06:26 	Youtube 	Chapter 0 	EdX
+GitHub 	03:31 	Youtube 	N/A 	EdX
+RStudio 	04:31 	Youtube 	N/A 	EdX
+Using the Textbook 	01:35 	Youtube 	N/A 	EdX
+Rstudio for Organization 	06:44 	Youtube 	N/A 	EdX
+Introduction to dplyr
