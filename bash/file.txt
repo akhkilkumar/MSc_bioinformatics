@@ -1,0 +1,12 @@
+Hello world, this is a simple text file.
+ERROR: Something went wrong.
+Warning: Low disk space.
+The cat is on the mat.
+Concatenate these two strings.
+TODO: Finish writing the report.
+Debug mode is enabled.
+12345 is a number.
+My favorite animals are dog, cat, and elephant.
+Critical failure detected in system.
+This is just a test line.
+Another line with Hello again.

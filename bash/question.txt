@@ -1,0 +1,31 @@
+
+
+#bioinformatics###############
+1. Count sequences in a FASTA file
+
+
+2. Extract sequence IDs from FASTA
+
+3. Find sequences with a specific motif (e.g., ATG)
+
+4. Case-insensitive search for motif
+
+5. Show line numbers of motifs
+
+6. Count reads in FASTQ file
+
+7. Extract only exon annotations from GFF
+
+8. Find all entries from chromosome 1 in GFF
+
+9. Count SNP variants in a VCF file
+
+10. Extract only high-quality variants (QUAL ≥ 30)
+
+
+
+
+
+
+
+

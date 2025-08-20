@@ -1,0 +1,4 @@
+chr1	source	exon	100	200	.	+	.	ID=exon1
+chr1	source	gene	300	900	.	+	.	ID=gene1
+chr2	source	exon	400	500	.	-	.	ID=exon2
+chr2	source	gene	600	1200	.	-	.	ID=gene2

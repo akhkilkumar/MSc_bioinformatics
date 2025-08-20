@@ -1,0 +1,12 @@
+#hello this if for installtion of mysql in python and pratical
+
+cat README.akhil 
+ 2004  sudo apt update
+ 2005  sudo apt install mysql-server
+ 2006  mysql --version
+ 2007  sudo mysql_secure_installation 
+ 2008  sudo systemctl status mysql
+ 2009  sudo systemctl start mysql
+ 2010  sudo systemctl status mysql
+ 2011  sudo mysql -u root
+

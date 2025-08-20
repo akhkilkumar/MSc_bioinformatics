@@ -1,0 +1,119 @@
+1. Search for "Hello" in file.txt
+   grep "Hello" file.txt
+
+2. Search for "error" (case-insensitive)
+   grep -i "error" file.txt
+
+3. Show line numbers with "cat"
+   grep -n "cat" file.txt
+
+4. Count lines containing "Warning"
+   grep -c "Warning" file.txt
+
+5. Search recursively for "TODO" in current folder
+   grep -r "TODO" .
+
+6. Print only the word "cat"
+   grep -o "cat" file.txt
+
+7. Show lines NOT containing "Debug"
+   grep -v "Debug" file.txt
+
+8. Match whole word "cat" only
+   grep -w "cat" file.txt
+
+9. Find lines starting with a number
+   grep "^[0-9]" file.txt
+
+10. Search for multiple words (error, fail, critical)
+    grep -E "error|fail|critical" file.txt
+
+11. Find lines ending with a period
+    grep "\.$" file.txt
+
+12. Find empty lines
+    grep "^$" file.txt
+
+13. Find lines with at least one digit
+    grep "[0-9]" file.txt
+
+14. Show first 3 matches of "Hello"
+    grep -m 3 "Hello" file.txt
+
+15. Search "cat" ignoring case
+    grep -i "cat" file.txt
+
+16. Highlight matches in terminal
+    grep --color=always "cat" file.txt
+
+17. Search lines with exactly 5 characters
+    grep "^.....$" file.txt
+
+18. Search lines that do NOT start with #
+    grep -v "^#" file.txt
+
+19. Count how many lines contain "is"
+    grep -c "is" file.txt
+
+20. Show surrounding context (2 lines before and after "error")
+    grep -C 2 "error" file.txt
+
+21. Show only lines before a match
+    grep -B 2 "error" file.txt
+
+22. Show only lines after a match
+    grep -A 2 "error" file.txt
+
+23. Search for lines containing uppercase words
+    grep "[A-Z]\{2,\}" file.txt
+
+24. Print line numbers for all lines
+    grep -n "." file.txt
+
+25. Use grep with regex: lines containing "dog" or "elephant"
+    grep -E "dog|elephant" file.txt
+
+
+# Create a text file with 10 grep practice commands and their expected use.
+
+grep_practice = """### 10 grep Practice Commands for Genomics Data
+
+1. Count sequences in FASTA
+   grep -c "^>" genomics_sample_data.txt
+   -> Counts how many sequences (headers start with '>').
+
+2. Extract FASTA sequence IDs
+   grep "^>" genomics_sample_data.txt
+   -> Prints sequence headers.
+
+3. Find motif ATG in sequences
+   grep "ATG" genomics_sample_data.txt
+   -> Shows lines containing the start codon ATG.
+
+4. Case-insensitive motif search
+   grep -i "atg" genomics_sample_data.txt
+   -> Matches ATG, atg, Atg, etc.
+
+5. Show line numbers of motif
+   grep -n "ATG" genomics_sample_data.txt
+   -> Shows line numbers where ATG occurs.
+
+6. Count reads in FASTQ
+   grep -c "^@read" genomics_sample_data.txt
+   -> Counts read headers (start with @read).
+
+7. Extract exon annotations from GFF
+   grep -w "exon" genomics_sample_data.txt
+   -> Prints all exon features.
+
+8. Get all annotations from chromosome 1
+   grep "^chr1" genomics_sample_data.txt
+   -> Extracts lines for chromosome 1.
+
+9. Count SNP variants in VCF
+   grep -v "^#" genomics_sample_data.txt | wc -l
+   -> Ignores headers (#) and counts variants.
+
+10. Extract high-quality variants (QUAL ≥ 30)
+    grep -v "^#" genomics_sample_data.txt | awk '$6>=30'
+    -> Filters variants with quality ≥ 30.

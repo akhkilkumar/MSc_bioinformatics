@@ -1,0 +1,6 @@
+##fileformat=VCFv4.2
+##source=DummyData
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+chr1	150	.	A	G	35	PASS	.
+chr1	345	.	T	C	20	PASS	.
+chr2	678	.	G	A	50	PASS	.
