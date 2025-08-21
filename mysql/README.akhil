@@ -8,5 +8,228 @@ cat README.akhil
  2008  sudo systemctl status mysql
  2009  sudo systemctl start mysql
  2010  sudo systemctl status mysql
- 2011  sudo mysql -u root
+ 2011  sudo mysql -u root 
+ or
+  sudo mysql -u root 
+   
+#####add new database
+
+wget https://downloads.mysql.com/docs/sakila-db.tar.gz
+tar -xvzf sakila-db.tar.gz
+cd sakila-db
+
+# Load schema
+mysql -u root -p < sakila-schema.sql
+# Load data
+mysql -u root -p < sakila-data.sql
+###################################
+
+
+SHOW DATABASES;
+USE sakila;
+SHOW TABLES;
+
+
+
+
+-- ===============================
+-- 10 Very Basic MySQL Commands
+-- ===============================
+
+-- 1. Show all databases
+SHOW DATABASES;
+
+-- 2. Switch to sakila database
+USE sakila;
+
+-- 3. Show all tables in the database
+SHOW TABLES;
+
+-- 4. See the structure of a table
+DESCRIBE actor;
+
+-- 5. Show first 10 rows of a table
+SELECT * FROM actor LIMIT 10;
+
+-- 6. Select specific columns
+SELECT first_name, last_name FROM actor;
+
+-- 7. Filter rows with WHERE
+SELECT * FROM actor WHERE last_name = 'SMITH';
+
+-- 8. Sort results
+SELECT * FROM actor ORDER BY first_name ASC;
+
+-- 9. Count rows
+SELECT COUNT(*) FROM actor;
+
+-- 10. Rename columns in output (alias)
+SELECT first_name AS fname, last_name AS lname FROM actor;
+
+
+
+####################################
+ 
+ 
+ 
+-- ===============================
+-- Create toy database and table
+-- ===============================
+
+-- Create new database
+CREATE DATABASE tutorial;
+
+-- Switch to the database
+USE tutorial;
+
+-- Create a simple table
+CREATE TABLE people (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(50)
+);
+
+-- Insert some sample rows
+INSERT INTO people (name, age, city) VALUES
+('Alice', 25, 'Delhi'),
+('Bob', 30, 'Mumbai'),
+('Charlie', 22, 'Bangalore'),
+('Diana', 28, 'Chennai'),
+('Ethan', 35, 'Kolkata');
+
+-- ===============================
+-- 10 Basic Commands
+-- ===============================
+
+-- 1. Show all databases
+SHOW DATABASES;
+
+-- 2. Switch to your database
+USE tutorial;
+
+-- 3. List all tables
+SHOW TABLES;
+
+-- 4. See table structure
+DESCRIBE people;
+
+-- 5. View all data
+SELECT * FROM people;
+
+-- 6. Select only specific columns
+SELECT name, city FROM people;
+
+-- 7. Filter rows with WHERE
+SELECT * FROM people WHERE age > 25;
+
+-- 8. Sort the results
+SELECT * FROM people ORDER BY age DESC;
+
+-- 9. Count rows
+SELECT COUNT(*) AS total_people FROM people;
+
+-- 10. Group by city and count
+SELECT city, COUNT(*) AS people_in_city
+FROM people
+GROUP BY city;
+ 
+ 
+ 
+
+Create your first database
+
+CREATE DATABASE mydb;
+
+Create a user and give permissions (optional but recommended)
+
+CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT ALL PRIVILEGES ON mydb.* TO 'myuser'@'localhost';
+FLUSH PRIVILEGES;
+
+
+EXIT;
+
+
+-- List all tables in the current database
+SHOW TABLES;
+
+-- See the structure of a specific table
+DESCRIBE people;
+
+-- View first 10 rows of data
+SELECT * FROM people LIMIT 10;
+
+-- Insert new data into the table
+INSERT INTO people (id, name, age) VALUES (4, 'Charlie', 28);
+
+-- Update existing data
+UPDATE people
+SET age = 29
+WHERE id = 4;
+
+-- Delete a row from the table
+DELETE FROM people
+WHERE id = 4;
+
+-- Create a new table example
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    course VARCHAR(50)
+);
+
+-- Show tables again to confirm new table
+SHOW TABLES;
+
+
+
+
+
+###########################################################################
+now connect to 
+mysql -u myuser -p mydb
+
+
+-- ===============================
+-- Method 1: Using LOAD DATA INFILE
+-- ===============================
+
+-- First, create the table
+CREATE TABLE people (
+    id INT,
+    name VARCHAR(50),
+    age INT
+);
+
+-- Bulk load data from text file (data.txt)
+-- Example content of data.txt:
+-- 1,John,25
+-- 2,Alice,30
+-- 3,Bob,22
+
+LOAD DATA LOCAL INFILE '/path/to/data.txt'
+INTO TABLE people
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n';
+
+-- ===============================
+-- Method 2: Using INSERT statements
+-- ===============================
+
+-- Insert data manually
+INSERT INTO people (id, name, age) VALUES (1, 'John', 25);
+INSERT INTO people (id, name, age) VALUES (2, 'Alice', 30);
+INSERT INTO people (id, name, age) VALUES (3, 'Bob', 22);
+
+
+########################################
+%%%%%%%%%%create a data.txt
+1,John,25
+2,Alice,30
+3,Bob,22
+
+%%%%%Run in MySQL
+mysql --local-infile=1 -u myuser -p mydb < insert_data.sql
 

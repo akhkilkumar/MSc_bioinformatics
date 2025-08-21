@@ -1,0 +1,89 @@
+20 SIMPLE AWK EXERCISES USING PDB FILE
+
+Sample PDB snippet (protein.pdb):
+---------------------------------
+ATOM      1  N   MET A   1      38.428  13.947  27.047  1.00 54.69           N
+ATOM      2  CA  MET A   1      39.292  13.025  26.254  1.00 54.46           C
+ATOM      3  C   MET A   1      38.555  11.721  25.906  1.00 53.80           C
+ATOM      4  O   MET A   1      38.741  10.615  26.480  1.00 53.42           O
+ATOM      5  CB  MET A   1      40.664  13.630  25.890  1.00 55.16           C
+ATOM      6  N   ALA A   2      37.812  11.799  24.812  1.00 52.90           N
+ATOM      7  CA  ALA A   2      37.024  10.589  24.384  1.00 52.10           C
+ATOM      8  C   ALA A   2      37.842   9.340  24.759  1.00 51.20           C
+ATOM      9  O   ALA A   2      37.657   8.225  24.150  1.00 51.00           O
+
+Column meanings:
+- $1 : Record type (ATOM, HETATM)
+- $2 : Atom serial number
+- $3 : Atom name
+- $4 : Residue name
+- $5 : Chain ID
+- $6 : Residue sequence number
+- $7 $8 $9 : X, Y, Z coordinates
+- $10 : Occupancy
+- $11 : B-factor
+- $12 : Element
+
+
+Exercises:
+----------
+
+1. Print all lines starting with ATOM
+   awk '$1=="ATOM"' protein.pdb
+
+2. Print atom serial numbers (column 2)
+   awk '$1=="ATOM" {print $2}' protein.pdb
+
+3. Print atom names (column 3)
+   awk '$1=="ATOM" {print $3}' protein.pdb
+
+4. Print residue names (column 4)
+   awk '$1=="ATOM" {print $4}' protein.pdb
+
+5. Print residue numbers (column 6)
+   awk '$1=="ATOM" {print $6}' protein.pdb
+
+6. Print X, Y, Z coordinates (columns 7, 8, 9)
+   awk '$1=="ATOM" {print $7, $8, $9}' protein.pdb
+
+7. Print atom name and residue name together
+   awk '$1=="ATOM" {print $3, $4}' protein.pdb
+
+8. Print line number along with the record
+   awk '$1=="ATOM" {print NR, $0}' protein.pdb
+
+9. Print only Oxygen atoms
+   awk '$3=="O"' protein.pdb
+
+10. Print atoms from residue number 2
+    awk '$6==2' protein.pdb
+
+11. Print atoms with X > 39
+    awk '$7>39 {print $0}' protein.pdb
+
+12. Print only Nitrogen atoms (N)
+    awk '$3=="N"' protein.pdb
+
+13. Print residues that are ALA
+    awk '$4=="ALA"' protein.pdb
+
+14. Print atoms from chain A
+    awk '$5=="A"' protein.pdb
+
+15. Count total number of ATOM records
+    awk '$1=="ATOM" {count++} END {print "Total atoms:", count}' protein.pdb
+
+16. Count number of atoms per residue
+    awk '$1=="ATOM" {res[$4]++} END {for(r in res) print r, res[r]}' protein.pdb
+
+17. Count number of atoms per residue number
+    awk '$1=="ATOM" {res[$6]++} END {for(r in res) print "Residue", r, ":", res[r]}' protein.pdb
+
+18. List all unique residue names
+    awk '$1=="ATOM" {res[$4]++} END {for(r in res) print r}' protein.pdb
+
+19. Replace MET with METHIONINE
+    awk '{gsub("MET","METHIONINE"); print}' protein.pdb
+
+20. Format output: print atom name and its coordinates in one line
+    awk '$1=="ATOM" {printf "%s: (%.3f, %.3f, %.3f)\n", $3, $7, $8, $9}' protein.pdb
