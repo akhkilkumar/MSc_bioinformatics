@@ -1,0 +1,39 @@
+This exercise simulates a real-world scenario where you have a protein sequence and need to use bioinformatics tools to determine its function and classification. It requires you to integrate information from multiple databases.
+
+Scenario: A newly sequenced gene from a recently discovered species of deep-sea bacteria is thought to be involved in its unique metabolic processes. You have been given its protein sequence and tasked with identifying any known functional domains or families to get a first clue about its role. The protein's UniProt ID is Q55648.
+
+Part 1: Initial Protein Characterization using UniProt
+
+    Go to the UniProt database: https://www.uniprot.org/
+
+    Enter the UniProt ID Q55648 into the search bar and hit enter.
+
+    Once the page loads, find the section for "Sequence" and copy the full FASTA sequence, starting with the '>' symbol.
+
+Part 2: The PROSITE Scan
+
+    Go to the ScanProsite web tool: https://prosite.expasy.org/scanprosite/
+
+    Paste the FASTA sequence you copied from UniProt into the input box.
+
+    Run the scan by clicking the "Start the scan" button.
+
+Part 3: Comparative Analysis & Interpretation
+
+Answer the following questions by integrating the information you found from both UniProt and the PROSITE scan.
+
+    General Function: Based on the UniProt entry, what is the most likely biological function of this protein? What is the name of its protein family?
+
+    Domain Identification: What is the main PROSITE profile that matches this protein? Provide the profile name and its accession number (e.g., PSXXXXX).
+
+    Domain Location: Where is this main domain located within the protein sequence? (Give the start and end amino acid positions).
+
+    Pattern Discovery: Does the PROSITE scan also find any specific, shorter patterns in this protein? If so, what is the description and accession number of one of these patterns?
+
+    Verification: Does the main PROSITE profile you found in question #2 confirm the protein family and function information you found on the UniProt page? Explain your reasoning.
+
+    Homology vs. Pattern: Imagine a simple BLAST search found that this protein has no significant similarity to any other protein in the database. Why would the PROSITE scan still be useful in this scenario? What does this tell you about the difference between sequence similarity and functional motif conservation?
+
+    Hypothesis Generation: Based on the PROSITE results, what is a specific, testable hypothesis you could propose about this protein's function? (e.g., "This protein likely binds to molecule X because it contains domain Y").
+
+    Divergence Analysis: Search the UniProt database for a similar protein, but from a very different organism (e.g., from a human or a plant). For instance, try searching for "DNA ligase". How do the PROSITE scan results for that protein compare to the results for the bacterial protein? Are the same domains found? What does this imply about the evolutionary conservation of these domains?
