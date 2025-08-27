@@ -33,7 +33,7 @@ SHOW TABLES;
 
 
 -- ===============================
--- 10 Very Basic MySQL Commands
+-- 20 Very Basic MySQL Commands
 -- ===============================
 
 -- 1. Show all databases
@@ -66,74 +66,147 @@ SELECT COUNT(*) FROM actor;
 -- 10. Rename columns in output (alias)
 SELECT first_name AS fname, last_name AS lname FROM actor;
 
+-- 11. Find unique values (DISTINCT)
+SELECT DISTINCT last_name FROM actor;
+
+-- 12. Use conditions with AND/OR
+SELECT * FROM actor WHERE first_name = 'NICK' OR last_name = 'WAHLBERG';
+
+-- 13. Pattern matching with LIKE
+SELECT * FROM actor WHERE first_name LIKE 'A%';
+
+-- 14. Range filtering with BETWEEN
+SELECT * FROM film WHERE rental_rate BETWEEN 2.99 AND 4.99;
+
+-- 15. Check values with IN
+SELECT * FROM film WHERE rating IN ('G', 'PG');
+
+-- 16. Find the maximum/minimum
+SELECT MAX(rental_rate) AS highest_rate, MIN(rental_rate) AS lowest_rate FROM film;
+
+-- 17. Calculate average
+SELECT AVG(rental_duration) AS avg_duration FROM film;
+
+-- 18. Group by with COUNT
+SELECT rating, COUNT(*) AS num_films FROM film GROUP BY rating;
+
+-- 19. Having clause (filter groups)
+SELECT rating, COUNT(*) AS num_films 
+FROM film 
+GROUP BY rating 
+HAVING COUNT(*) > 200;
+
+-- 20. Join two tables
+SELECT f.title, c.name AS category
+FROM film f
+JOIN film_category fc ON f.film_id = fc.film_id
+JOIN category c ON fc.category_id = c.category_id;
+
 
 
 ####################################
- 
- 
- 
 -- ===============================
--- Create toy database and table
+-- MySQL Practical: Create College Database and Enter Students Manually
 -- ===============================
 
--- Create new database
-CREATE DATABASE tutorial;
 
--- Switch to the database
-USE tutorial;
 
--- Create a simple table
-CREATE TABLE people (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50),
+
+-- 1. Create a new database
+CREATE DATABASE college;
+
+-- 2. Switch to that database
+USE college;
+
+-- 3. Create a table for students
+CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
     age INT,
-    city VARCHAR(50)
+    department VARCHAR(50)
 );
 
--- Insert some sample rows
-INSERT INTO people (name, age, city) VALUES
-('Alice', 25, 'Delhi'),
-('Bob', 30, 'Mumbai'),
-('Charlie', 22, 'Bangalore'),
-('Diana', 28, 'Chennai'),
-('Ethan', 35, 'Kolkata');
+-- 4. Insert data manually (one row at a time)
+INSERT INTO students (first_name, last_name, age, department)
+VALUES ('Rahul', 'Sharma', 20, 'Computer Science');
 
--- ===============================
--- 10 Basic Commands
--- ===============================
+INSERT INTO students (first_name, last_name, age, department)
+VALUES ('Priya', 'Verma', 22, 'Mathematics');
 
--- 1. Show all databases
-SHOW DATABASES;
+INSERT INTO students (first_name, last_name, age, department)
+VALUES ('Amit', 'Kumar', 21, 'Physics');
 
--- 2. Switch to your database
-USE tutorial;
+-- 5. Insert multiple rows at once
+INSERT INTO students (first_name, last_name, age, department) VALUES
+('Sneha', 'Singh', 23, 'Chemistry'),
+('Vikram', 'Yadav', 19, 'Biology'),
+('Anjali', 'Patel', 20, 'English Literature');
 
--- 3. List all tables
-SHOW TABLES;
+-- 6. View the table
+SELECT * FROM students;
 
--- 4. See table structure
-DESCRIBE people;
+-- 7. Update a student record
+UPDATE students SET age = 24 WHERE student_id = 2;
 
--- 5. View all data
-SELECT * FROM people;
+-- 8. Delete a student record
+DELETE FROM students WHERE student_id = 3;
 
--- 6. Select only specific columns
-SELECT name, city FROM people;
+-- 9. Add a new column
+ALTER TABLE students ADD email VARCHAR(100);
 
--- 7. Filter rows with WHERE
-SELECT * FROM people WHERE age > 25;
+-- 10. Rename a column
+ALTER TABLE students CHANGE department dept_name VARCHAR(50);
 
--- 8. Sort the results
-SELECT * FROM people ORDER BY age DESC;
+-- 11. Drop (remove) a column
+ALTER TABLE students DROP COLUMN email;
 
--- 9. Count rows
-SELECT COUNT(*) AS total_people FROM people;
+-- 12. Insert a duplicate and then prevent duplicates using UNIQUE
+INSERT INTO students (first_name, last_name, age, dept_name)
+VALUES ('Rahul', 'Sharma', 20, 'Computer Science');
 
--- 10. Group by city and count
-SELECT city, COUNT(*) AS people_in_city
-FROM people
-GROUP BY city;
+ALTER TABLE students ADD CONSTRAINT unique_name UNIQUE (first_name, last_name);
+
+-- 13. Remove duplicate rows (keep only unique)
+DELETE s1 FROM students s1
+JOIN students s2 
+ON s1.first_name = s2.first_name 
+AND s1.last_name = s2.last_name 
+AND s1.student_id > s2.student_id;
+
+-- 14. Change the datatype of a column
+ALTER TABLE students MODIFY age SMALLINT;
+
+-- 15. Add a NOT NULL constraint
+ALTER TABLE students MODIFY first_name VARCHAR(50) NOT NULL;
+
+-- 16. Add a default value to a column
+ALTER TABLE students ALTER dept_name SET DEFAULT 'Undeclared';
+
+-- 17. Truncate the table (remove all rows but keep structure)
+TRUNCATE TABLE students;
+
+-- 18. Drop the entire table
+DROP TABLE students;
+
+-- 19. Drop the whole database
+DROP DATABASE college;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
+
  
  
 
