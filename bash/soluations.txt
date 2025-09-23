@@ -117,3 +117,50 @@ grep_practice = """### 10 grep Practice Commands for Genomics Data
 10. Extract high-quality variants (QUAL ≥ 30)
     grep -v "^#" genomics_sample_data.txt | awk '$6>=30'
     -> Filters variants with quality ≥ 30.
+    
+    
+    
+Sample FASTA File: sequences.fasta
+
+>seq1
+ATGCGTATCGTAGCTAGCTAGCTA
+>seq2
+TTTGGGCCCATAATCGTAGCTA
+>seq3
+ATGATGATGATGCCCGGG
+>seq4
+GGGAAATTTCCCGGGAAT
+>seq5
+CCCATGCCCTAGCTAATG
+
+
+1. Find all sequences starting with ATG (start codon-like)
+grep "^ATG" sequences.fasta
+
+2. Find sequences ending with TAA (stop codon-like)
+grep "TAA$" sequences.fasta
+
+3. Find all headers (lines starting with >)
+grep "^>" sequences.fasta
+
+4. Find sequences containing at least three consecutive G’s
+grep "GGG" sequences.fasta
+
+5. Find sequences with ATG followed by any 3 bases and then TGA (motif search)
+grep "ATG...TGA" sequences.fasta
+
+6. Find sequences that contain only A, T, G, C (no N’s or other letters)
+grep "^[ATGC]*$" sequences.fasta
+
+7. Find sequences where ATG occurs more than once
+grep -E "(ATG).*?(ATG)" sequences.fasta
+
+8. Count how many sequences contain TAG
+grep -c "TAG" sequences.fasta
+
+9. Find IDs of sequences containing ATG
+grep -B1 "ATG" sequences.fasta | grep "^>"
+
+10. Find sequences of length exactly 20 bp
+grep -E "^[ATGC]{20}$" sequences.fasta
+

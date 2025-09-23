@@ -1,0 +1,142 @@
+-- --------------------------------------
+-- One-file MySQL script: company_db
+-- Creates DB, tables, inserts 25 employees,
+-- and shows example join queries + required query
+-- --------------------------------------
+
+-- Clean up if rerun
+DROP DATABASE IF EXISTS company_db;
+CREATE DATABASE company_db;
+USE company_db;
+
+-- Create departments table
+DROP TABLE IF EXISTS departments;
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50) NOT NULL
+);
+
+-- Create salary_grades table for non-equi join
+DROP TABLE IF EXISTS salary_grades;
+CREATE TABLE salary_grades (
+    grade CHAR(1) PRIMARY KEY,
+    min_salary DECIMAL(10,2) NOT NULL,
+    max_salary DECIMAL(10,2) NOT NULL
+);
+
+-- Create employees table
+DROP TABLE IF EXISTS employees;
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100) NOT NULL,
+    manager_id INT NULL,
+    salary DECIMAL(10,2) NOT NULL,
+    dept_id INT NULL,
+    hire_date DATE NULL,
+    title VARCHAR(50) NULL,
+    FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
+    -- Note: manager_id not enforced as FK to allow flexible ordering of inserts
+);
+
+-- Insert departments
+INSERT INTO departments (dept_id, dept_name) VALUES
+(10, 'HR'),
+(20, 'Finance'),
+(30, 'IT'),
+(40, 'Sales'),
+(50, 'R&D'),
+(60, 'Operations');
+
+-- Insert salary grades
+INSERT INTO salary_grades (grade, min_salary, max_salary) VALUES
+('A', 30000.00, 39999.99),
+('B', 40000.00, 49999.99),
+('C', 50000.00, 59999.99),
+('D', 60000.00, 74999.99),
+('E', 75000.00, 999999.99);
+
+-- Insert 25 employees (IDs chosen so managers exist among them)
+INSERT INTO employees (emp_id, emp_name, manager_id, salary, dept_id, hire_date, title) VALUES
+(1001, 'Arjun Mehta',    NULL,   120000.00, 50, '2015-04-12', 'Head R&D'),
+(1002, 'Bhavna Rao',     NULL,    95000.00, 20, '2016-09-01', 'Head Finance'),
+(1003, 'Chirag Patel',   NULL,    98000.00, 30, '2014-07-20', 'Head IT'),
+(1004, 'Deepa Singh',     1001,   72000.00, 50, '2017-11-03', 'Senior Scientist'),
+(1005, 'Esha Verma',      1001,   56000.00, 50, '2018-02-15', 'Scientist'),
+(1006, 'Firoz Khan',      1003,   65000.00, 30, '2019-05-28', 'IT Manager'),
+(1007, 'Gaurav Sharma',   1002,   48000.00, 20, '2020-08-10', 'Accountant'),
+(1008, 'Hema Joshi',      1002,   52000.00, 20, '2021-01-05', 'Financial Analyst'),
+(1009, 'Ishaan Kapoor',   1003,   43000.00, 30, '2022-03-12', 'SysAdmin'),
+(1010, 'Jaya Nair',       1004,   38000.00, 50, '2023-06-18', 'Research Asst.'),
+(1011, 'Karan Bhatia',    1006,   45000.00, 30, '2020-12-01', 'Developer'),
+(1012, 'Lata Iyer',       1004,   77000.00, 50, '2016-04-22', 'Principal Scientist'),
+(1013, 'Mohan Reddy',     1003,   61000.00, 30, '2018-09-14', 'DevOps Engineer'),
+(1014, 'Nisha Gupta',     1002,   39000.00, 20, '2022-10-30', 'Clerk'),
+(1015, 'Om Prakash',      1005,   54000.00, 50, '2019-02-11', 'Scientist'),
+(1016, 'Pooja Malhotra',  1008,   47000.00, 20, '2021-07-07', 'Accounts Exec'),
+(1017, 'Qadir Ansari',    1006,   42000.00, 30, '2023-01-20', 'Junior Dev'),
+(1018, 'Ritu Sinha',      1001,   88000.00, 50, '2013-05-09', 'R&D Program Lead'),
+(1019, 'Sahil Kapoor',    1004,   35000.00, 50, '2024-02-14', 'Intern'),
+(1020, 'Tania Roy',       1002,   46000.00, 20, '2019-11-25', 'Accountant'),
+(1021, 'Uday Chauhan',    1007,   41000.00, 40, '2018-08-08', 'Sales Exec'),
+(1022, 'Vandana Kaur',    1007,   33000.00, NULL, '2020-03-03', 'Field Sales'), -- no dept assigned (NULL)
+(1023, 'Wasim Sheikh',    1001,   67000.00, 50, '2017-01-16', 'Senior Scientist'),
+(1024, 'Xavier Dsouza',   1003,   59000.00, 30, '2015-10-20', 'Developer'),
+(1025, 'Yamini Desai',    1002,   30500.00, 20, '2024-07-01', 'Trainee');
+
+-- Verify inserted rows (optional)
+SELECT COUNT(*) AS total_employees FROM employees;
+
+-- -------------------------
+-- Example Queries (joins)
+-- -------------------------
+
+-- a) SELF JOIN: show each employee and their manager name (if any)
+SELECT e.emp_id, e.emp_name AS employee_name,
+       m.emp_id AS manager_emp_id, m.emp_name AS manager_name
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.emp_id
+ORDER BY e.emp_id;
+
+-- b) EQUI JOIN: employees with their department names (inner join on dept_id)
+SELECT e.emp_id, e.emp_name, d.dept_name
+FROM employees e
+JOIN departments d ON e.dept_id = d.dept_id
+ORDER BY d.dept_name, e.emp_name;
+
+-- c) NON-EQUI JOIN: map employees to salary grades using BETWEEN (salary range)
+SELECT e.emp_id, e.emp_name, e.salary, g.grade
+FROM employees e
+JOIN salary_grades g
+  ON e.salary BETWEEN g.min_salary AND g.max_salary
+ORDER BY e.salary DESC;
+
+-- d) OUTER JOIN: list all employees and their department names (show NULL for missing dept)
+SELECT e.emp_id, e.emp_name, e.dept_id, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.dept_id
+ORDER BY e.emp_id;
+
+-- -------------------------
+-- Required query:
+-- Employees who earn more than the average salary, sorted ascending by salary
+-- -------------------------
+SELECT emp_id, emp_name, salary
+FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees)
+ORDER BY salary ASC;
+
+-- -------------------------
+-- Additional helpful queries (optional)
+-- -------------------------
+
+-- Average salary value (for reference)
+SELECT ROUND(AVG(salary),2) AS average_salary FROM employees;
+
+-- Show department headcounts
+SELECT d.dept_name, COUNT(e.emp_id) AS headcount
+FROM departments d
+LEFT JOIN employees e ON e.dept_id = d.dept_id
+GROUP BY d.dept_name
+ORDER BY headcount DESC;
+
+-- End of script

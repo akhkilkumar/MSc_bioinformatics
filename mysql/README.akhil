@@ -95,7 +95,7 @@ SELECT rating, COUNT(*) AS num_films
 FROM film 
 GROUP BY rating 
 HAVING COUNT(*) > 200;
-
+2
 -- 20. Join two tables
 SELECT f.title, c.name AS category
 FROM film f
