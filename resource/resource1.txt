@@ -26,3 +26,6 @@ https://lnkd.in/ek5mG_SX
 10/ An introduction to Applied Bioinformatics https://lnkd.in/eei99cQx Very nice book with python code.
 
 I hope you've found this post helpful.
+
+#best tutorial on chimeraX
+https://rbvi.github.io/chimerax-recipes/
